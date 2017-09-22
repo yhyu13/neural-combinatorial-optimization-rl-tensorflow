@@ -19,7 +19,7 @@ It consists in a RNN encoder-decoder with an attention module connecting the dec
 ## Usage
 
 - To train a (2D TSP20) model from scratch (data is generated on the fly):
-> $ python main.py --max_length 20 --inference_mode 'False' --restore_model 'False' --save_to '20/repo' --log_dir 'summary/repo'
+> $ python main.py --max_length=20 --inference_mode=False --restore_model=False --save_to=20/repo --log_dir=summary/repo
 
 NB: Just make sure ./save/20/repo exists (create it otherwise)
 
@@ -27,7 +27,7 @@ NB: Just make sure ./save/20/repo exists (create it otherwise)
 > $ tensorboard --logdir=summary/repo
 
 - To test a trained model:
-> $ python main.py --max_length 20 --inference_mode 'True' --restore_model 'True' --restore_from '20/repo'
+> $ python main.py --max_length=20 --inference_mode=True --restore_model=True --restore_from=20/repo
 
 
 ## Results
