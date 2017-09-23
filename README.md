@@ -11,6 +11,7 @@ The Neural Network consists in a RNN encoder-decoder with an attention module co
 - Python 2.7 or 3.5
 - [TensorFlow 1.0.1](https://www.tensorflow.org/install/)
 - tqdm
+- [Google OR tools](https://developers.google.com/optimization/) - optional reference solver (main.py, dataset.py)
 
 ## Architecture
 
