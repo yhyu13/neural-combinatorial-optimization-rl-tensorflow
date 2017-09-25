@@ -24,7 +24,7 @@ The Neural Network consists in a RNN encoder-decoder with an attention module co
 > python main.py --max_length=20 --inference_mode=False --restore_model=False --save_to=20/model --log_dir=summary/repo
 ```
 
-NB: Just make sure ./save/20/repo exists (create it otherwise)
+NB: Just make sure ./save/20/model exists (create folder otherwise)
 
 - To visualize training on tensorboard:
 ```
