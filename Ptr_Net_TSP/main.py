@@ -12,6 +12,13 @@ from config import get_config, print_config
 from tsp_with_ortools import Solver
 
 
+### Model: Critic (state value function approximator) = slim mean RNN (parametric baseline ***) w/o moving baseline
+###        Encoder = RNN
+###        Decoder init_state = Encoder last_state                        
+###        Decoder inputs = Encoder outputs
+###        Decoder Glimpse = on Attention_g (mask - current)
+###        No Residual connections
+
 
 def main():
     # Get running configuration
