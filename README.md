@@ -40,6 +40,14 @@ NB: Just make sure ./save/20/model exists (create folder otherwise)
 
 (under progress)
 
+Sampling 128 solutions with the Self-Attentive Encoder + Pointer Decoder:
+
+![Self_Net_TSP20](./Img/Self_Net_TSP20.1_AC_0.9983.png)
+
+Comparison to Google OR tools on 1000 TSP20 instances: (predicted tour length) = 0.9983 * (target tour length)
+
+
+
 ## Authors
 
 Michel Deudon / [@mdeudon](https://github.com/MichelDeudon)
