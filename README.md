@@ -46,9 +46,9 @@ Sampling 128 permutations with the Self-Attentive Encoder + Pointer Decoder:
 
 ![Self_Net_TSP20](./Img/Self_Net_TSP20.1_AC_0.9983.png)
 
-- Comparison to Google OR tools on 1000 TSP40 instances: (predicted tour length) = 1.0391 * (target tour length)
+- Comparison to Google OR tools on 1000 TSP40 instances: (predicted tour length) = 1.0387 * (target tour length)
 
-![Self_Net_TSP40](./Img/Self_Net_TSP40.1_AC_1.0391.png)
+![Self_Net_TSP40](./Img/Self_Net_TSP40.1_AC_1.0387.png)
 
 
 ## Authors
