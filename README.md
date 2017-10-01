@@ -21,14 +21,14 @@ The Neural Network consists in a RNN encoder-decoder with an attention module co
 
 - To train a (2D TSP20) model from scratch (data is generated on the fly):
 ```
-> python main.py --max_length=20 --inference_mode=False --restore_model=False --save_to=20/model --log_dir=summary/repo
+> python main.py --max_length=20 --inference_mode=False --restore_model=False --save_to=20/model --log_dir=summary/20/repo
 ```
 
 NB: Just make sure ./save/20/model exists (create folder otherwise)
 
 - To visualize training on tensorboard:
 ```
-> tensorboard --logdir=summary/repo
+> tensorboard --logdir=summary/20/repo
 ```
 
 - To test a trained model:
@@ -40,12 +40,15 @@ NB: Just make sure ./save/20/model exists (create folder otherwise)
 
 (under progress)
 
-Sampling 128 solutions with the Self-Attentive Encoder + Pointer Decoder:
+Sampling 128 permutations with the Self-Attentive Encoder + Pointer Decoder:
+
+- Comparison to Google OR tools on 1000 TSP20 instances: (predicted tour length) = 0.9983 * (target tour length)
 
 ![Self_Net_TSP20](./Img/Self_Net_TSP20.1_AC_0.9983.png)
 
-Comparison to Google OR tools on 1000 TSP20 instances: (predicted tour length) = 0.9983 * (target tour length)
+- Comparison to Google OR tools on 1000 TSP40 instances: (predicted tour length) = 1.0391 * (target tour length)
 
+![Self_Net_TSP40](./Img/Self_Net_TSP40.1_AC_1.0391.png)
 
 
 ## Authors
