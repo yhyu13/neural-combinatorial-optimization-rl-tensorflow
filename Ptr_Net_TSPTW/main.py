@@ -12,7 +12,7 @@ from config import get_config, print_config
 
 
 
-# OK:
+# Model:
 # Decoder inputs = Encoder outputs
 # Critic design (state value function approximator) = RNN encoder last hidden state (c) (parametric baseline ***) + 1 glimpse over (c) at memory states + 2 FFN layers (ReLu), w/o moving_baseline (init_value = 7 for TSPTW20)
 # Penalty: Discrete (counts) with beta = +3 for one constraint / beta*sqrt(N) for N constraints violated (concave **0.5)
@@ -21,31 +21,9 @@ from config import get_config, print_config
 # Residual connections 01
 
 # NEW data generator (wrap config.py)
-# speed1000 models: n20w100 / n20w80 / n20w60 / n20w40 / n20w20
-# speed10 models: s10_k5_n20_wXXX (fine tuned w/ feasible kNN datagen)
-# Benchmark: Dumas n20wXXX instances (OK for w80, w100. Not ok for w20, w40, w60 [low overlap + test distant vs. train 5NN search])
-
-
-
-
-##### (Actor/critic design) Encoder embeds (non linearities ??) input = set (self-A) or sequence (RNN) ***
-
-# State (visited_sequence), action (point_to), reward (episodic ??), state (visited_sequence)
-
-# Better exploration (On policy: noise, lr TRPO, anneal entropy regul...)
-# Better feedback (Reinforce var: Critic, penalty function - discrete, concave)
-# Beam search / UCT / MC ? (plan ahead w/ delivery_time predictor e.g. trained by TD)
-
-# Inference mode: Encode once. Then tile reference vectors & Decode a batch. Evaluate unique permutations.
-
-# Config (layers, neurons, init_, temperature, random seed...)
-
-##### Git. Benchmark (heuristics, feasible DataGen...). Paper.
-
-
-
-
-
+# speed1000 model: n20w100
+# speed10 model: s10_k5_n20w100 (fine tuned w/ feasible kNN datagen)
+# Benchmark: Dumas n20w100 instances
 
 
 
@@ -111,17 +89,12 @@ def main():
             predictions_2opt=[]
             no_predictions_length=[]
 
-            #for __ in tqdm(range(1000)): # num of examples
+            # load benchmark instances
             dataset = training_set.load_Dumas()
             for file_name in dataset:
+
+                # Get feed_dict
                 print(file_name)
-
-                # Get feed_dict (single input)
-                #seed_ = 1+__
-                #input_batch, or_sequence, tw_open, tw_close = training_set.test_batch(seed=seed_) # seed=0 means None
-                #feed = {actor.input_: input_batch}
-
-                # Get feed_dict (single input)
                 or_sequence, tw_open, tw_close = dataset[file_name]['sequence'], dataset[file_name]['tw_open'], dataset[file_name]['tw_close']
                 feed = {actor.input_: np.tile(dataset[file_name]['input_'],(config.batch_size,1,1))}
 
@@ -129,14 +102,7 @@ def main():
                 init_tour_length = training_set.get_tour_length(or_sequence)
                 no_predictions_length.append(init_tour_length/100)
                 
-                # Solve instance (OR tools)
-                #or_permutation, or_tour_length, or_delivery_time  = training_set.solve_instance(or_sequence, tw_open, tw_close)
-                #if or_tour_length<0: # fail
-                #    print('err1 (OR_tools)',file_name)
-                #    targets.append(init_tour_length/100) 
-                #else:
-                #    or_tour_length = training_set.get_tour_length(or_sequence[or_permutation])
-                #    targets.append(or_tour_length/100)
+                # Solve to optimality
                 targets.append(dataset[file_name]['optimal_length'])
 
                 # Sample solutions
@@ -169,25 +135,20 @@ def main():
                 else:
                     predictions_2opt.append(two_opt_length_/100)
 
-                # plot corresponding tour
+                # print, plot corresponding tour
                 if False: #delay[j]>0:
-                    #training_set.visualize_sampling([or_permutation])
                     #training_set.visualize_sampling(permutations)
                     print('\n Model tour length: ',training_set.get_tour_length(or_sequence[best_permutation])/100,'(delay:',delay[j],')')
                     print('\n w/ 2opt: ',two_opt_length/100)
                     #print(' * permutation: \n', best_permutation)
                     #print(' * delivery time: \n', np.rint(100*(delivery_time[j]-delivery_time[j][0]))-1)
-                    #print('\n Solver tour length: ', or_tour_length/100)
-                    #print(' * permutation: \n', np.asarray(or_permutation))
-                    #print(' * delivery time: \n', or_delivery_time)
                     print('\n Optimal tour length: \n',dataset[file_name]['optimal_length'])
                     #training_set.visualize_attention(attending[j])
                     #training_set.visualize_attention(pointing[j])
                     #training_set.visualize_2D_trip(or_sequence[::-1], tw_open[::-1], tw_close[::-1]) # Input
                     training_set.visualize_2D_trip(or_sequence[best_permutation], tw_open[best_permutation], tw_close[best_permutation]) # Model
                     training_set.visualize_2D_trip(two_opt_output[:,:2], np.expand_dims(two_opt_output[:,2], axis=1), np.expand_dims(two_opt_output[:,3], axis=1)) # Model + 2 opt
-                    #training_set.visualize_2D_trip(or_sequence[or_permutation], tw_open[or_permutation], tw_close[or_permutation]) # OR tools
-                    training_set.visualize_2D_trip(dataset[file_name]['optimal_sequence'], dataset[file_name]['optimal_tw_open'], dataset[file_name]['optimal_tw_close'])
+                    training_set.visualize_2D_trip(dataset[file_name]['optimal_sequence'], dataset[file_name]['optimal_tw_open'], dataset[file_name]['optimal_tw_close']) # Optimal
 
 
             # Average tour length
