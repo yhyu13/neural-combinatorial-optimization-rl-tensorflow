@@ -206,7 +206,7 @@ if __name__ == "__main__":
         for i in tqdm(range(nb_epoch)): # epoch i
 
             # Get feed_dict
-            input_batch  = training_set.train_batch(actor.batch_size, actor.max_length, actor.input_dimension)
+            input_batch  = training_set.train_batch()
             feed = {actor.input_: input_batch}
             #print(' Input \n', input_batch)
 
