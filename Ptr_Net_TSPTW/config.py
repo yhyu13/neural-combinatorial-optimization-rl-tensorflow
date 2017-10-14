@@ -30,6 +30,7 @@ data_arg.add_argument('--speed', type=float, default=10.0, help='agent speed') #
 data_arg.add_argument('--kNN', type=int, default=5, help='int for random k_nearest_neighbor') ################ kNN 5
 data_arg.add_argument('--width_mean', type=float, default=30.0, help='tw width gaussian distribution mean') ### [5,2] n20w20, [11,5] n20w40, [17,7] n20w60
 data_arg.add_argument('--width_std', type=float, default=11.0, help='tw width gaussian distribution std') ##### [22,9] n20w80, [30,11] n20w100
+data_arg.add_argument('--dir_', type=str, default='n20w100', help='Dumas benchmarch instances') ###############
 
 # Training / test parameters
 train_arg = add_argument_group('Training')
