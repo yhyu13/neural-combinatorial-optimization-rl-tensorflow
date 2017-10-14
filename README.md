@@ -79,8 +79,10 @@ Sampling 128 permutations with the Self-Attentive Encoder + Pointer Decoder:
 ### TSP-TW
 
 Sampling 256 permutations with the RNN Encoder + Pointer Decoder, followed by a 2-opt post processing on best tour:
-![tsptw1](./Img/n20w100.1_ptr2 (2.4424).png)
-![tsptw2](./Img/n20w100.3_ptr2 (3.1893).png)
+- Dumas instance n20w100.001
+![tsptw1](./Img/n20w100.1_ptr2.png)
+- Dumas instance n20w100.003
+![tsptw2](./Img/n20w100.3_ptr2.png)
 
 ## Authors
 
