@@ -90,7 +90,7 @@ def main():
             no_predictions_length=[]
 
             # load benchmark instances
-            dataset = training_set.load_Dumas()
+            dataset = training_set.load_Dumas(dir_=config.dir_)
             for file_name in dataset:
 
                 # Get feed_dict
