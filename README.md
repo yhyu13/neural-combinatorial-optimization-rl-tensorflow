@@ -1,9 +1,8 @@
 # Neural Combinatorial Optimization with RL
 
-TensorFlow implementation of [Neural Combinatorial Optimization with Reinforcement Learning](http://arxiv.org/abs/1611.09940) for the Traveling Salesman Problem.
+TensorFlow implementation of [Neural Combinatorial Optimization with Reinforcement Learning](http://arxiv.org/abs/1611.09940) for the Traveling Salesman Problem (TSP) and the TSP with Time Windows (TSP-TW)
 
 ![model](./Img/Pointer_Net.png)
-
 The Neural Network consists in a RNN encoder-decoder with an attention module connecting the decoder to the encoder (via a "pointer"). The model is trained by Policy Gradient ([Reinforce](https://link.springer.com/article/10.1007/BF00992696), 1992).
 
 ## Requirements
@@ -18,6 +17,8 @@ The Neural Network consists in a RNN encoder-decoder with an attention module co
 (under progress)
 
 ## Usage
+
+### TSP
 
 - To train a (2D TSP20) model from scratch (data is generated on the fly):
 ```
@@ -36,6 +37,35 @@ NB: Just make sure ./save/20/model exists (create folder otherwise)
 > python main.py --max_length=20 --inference_mode=True --restore_model=True --restore_from=20/model
 ```
 
+### TSP-TW
+
+- To pretrain a (2D TSPTW20) model with infinite travel speed from scratch:
+```
+> python main.py --inference_mode=False --pretrain=True --restore_model=False --speed=1000. --beta=3  --save_to=speed1000/n20w100 --log_dir=summary/speed1000/n20w100
+```
+
+
+- To fine tune a (2D TSPTW20) model with finite travel speed:
+```
+> python main.py --inference_mode=False --pretrain=False --kNN=5 --restore_model=True --restore_from=speed1000/n20w100 --speed=10.0 --beta=3 --save_to=speed10/s10_k5_n20w100 --log_dir=summary/speed10/s10_k5_n20w100
+```
+
+NB: Just make sure save_to folders exist
+
+- To visualize training on tensorboard:
+```
+> tensorboard --logdir=summary/speed1000/n20w100
+```
+```
+> tensorboard --logdir=summary/speed10/s10_k5_n20w100
+```
+
+- To test a trained model with finite travel speed on Dumas instances (in the benchmark folder):
+```
+> python main.py --inference_mode=True --restore_model=True --restore_from=speed10/s10_k5_n20w100 --speed=10.0
+```
+
+
 ## Results
 
 ### TSP
@@ -48,7 +78,9 @@ Sampling 128 permutations with the Self-Attentive Encoder + Pointer Decoder:
 
 ### TSP-TW
 
-(Under Progress)
+Sampling 256 permutations with the RNN Encoder + Pointer Decoder, followed by a 2-opt post processing on best tour:
+![tsptw1](./Img/n20w100.1_ptr2 (2.4424).png)
+![tsptw2](./Img/n20w100.3_ptr2 (3.1893).png)
 
 ## Authors
 
