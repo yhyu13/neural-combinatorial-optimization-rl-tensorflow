@@ -28,8 +28,8 @@ data_arg.add_argument('--input_dimension', type=int, default=2, help='city dimen
 data_arg.add_argument('--max_length', type=int, default=20, help='number of deliveries') # this excludes depot
 data_arg.add_argument('--speed', type=float, default=10.0, help='agent speed') ############################### speed 10
 data_arg.add_argument('--kNN', type=int, default=5, help='int for random k_nearest_neighbor') ################ kNN 5
-data_arg.add_argument('--width_mean', type=float, default=22.0, help='tw width gaussian distribution mean') ### [5,2] n20w20, [11,5] n20w40, [17,7] n20w60
-data_arg.add_argument('--width_std', type=float, default=9.0, help='tw width gaussian distribution std') ##### [22,9] n20w80, [30,11] n20w100
+data_arg.add_argument('--width_mean', type=float, default=30.0, help='tw width gaussian distribution mean') ### [5,2] n20w20, [11,5] n20w40, [17,7] n20w60
+data_arg.add_argument('--width_std', type=float, default=11.0, help='tw width gaussian distribution std') ##### [22,9] n20w80, [30,11] n20w100
 
 # Training / test parameters
 train_arg = add_argument_group('Training')
