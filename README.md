@@ -1,10 +1,10 @@
 # Neural Combinatorial Optimization with RL
 
-TensorFlow implementation of [Neural Combinatorial Optimization with Reinforcement Learning](http://arxiv.org/abs/1611.09940) for the Traveling Salesman Problem (TSP) and the TSP with Time Windows (TSP-TW)
+TensorFlow implementation and extension of [Neural Combinatorial Optimization with Reinforcement Learning](http://arxiv.org/abs/1611.09940) for the Traveling Salesman Problem (TSP) and the TSP with Time Windows (TSP-TW)
 
 ![model](./Img/Pointer_Net.png)
 
-The Neural Network consists in a RNN encoder-decoder with an attention module connecting the decoder to the encoder (via a "pointer"). The model is trained by Policy Gradient ([Reinforce](https://link.springer.com/article/10.1007/BF00992696), 1992).
+The Neural Network consists in a RNN or self attentive encoder-decoder with an attention module connecting the decoder to the encoder (via a "pointer"). The model is trained by Policy Gradient ([Reinforce](https://link.springer.com/article/10.1007/BF00992696), 1992).
 
 ## Requirements
 
